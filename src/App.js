@@ -92,6 +92,10 @@ class App {
         window.addEventListener('mousemove', (e) => {
             this.mousePosition = Utils.getMousePos(this.canvas, e);
         });
+        window.addEventListener('resize', () => {
+            this.canvas.width = window.innerWidth;
+            this.canvas.height = window.innerHeight;
+        });
     }
 }
 
