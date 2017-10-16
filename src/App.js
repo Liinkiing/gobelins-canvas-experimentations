@@ -5,7 +5,7 @@ import Circle from "./forms/Circle";
 const RECTANGLES_NUMBER = 100;
 const CIRCLES_NUMBER = 100;
 const DISTANCE_BETWEEN_CIRCLES = 150;
-const MAX_VELOCITY = 5;
+const MAX_VELOCITY = 10;
 
 class App {
 
@@ -70,8 +70,8 @@ class App {
                 let distance = (Math.sqrt(a * a + b * b));
                 if (distance <= DISTANCE_BETWEEN_CIRCLES) {
                     let d = (distance / DISTANCE_BETWEEN_CIRCLES).toFixed(2);
-                    this.ctx.strokeStyle = `rgba(0,0,0,${d}`;
-                    this.ctx.lineWidth = d * 2;
+                    this.ctx.strokeStyle = `rgba(255,255,255,${d}`;
+                    this.ctx.lineWidth = d;
                     this.ctx.lineTo(c.x, c.y);
                 }
             }

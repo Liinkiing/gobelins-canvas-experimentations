@@ -2,7 +2,7 @@ class Circle {
 
     constructor(context, canvas, radius, position, options = {}) {
         let defaults = {
-            strokeStyle: "#00aa00",
+            strokeStyle: "#FFF",
             fillStyle: "red",
             strokeWidth: 20,
             lineWidth: 20,
