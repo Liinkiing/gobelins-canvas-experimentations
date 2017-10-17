@@ -1,8 +1,11 @@
+let SimplexNoise = require('simplex-noise');
+
 import Line from "./Line";
 
 class CircleLine {
 
     constructor(context, canvas, radius = 100, precision = 100, options = {}) {
+        this.simplex = new SimplexNoise();
         this.context = context;
         this.canvas = canvas;
         this.precision = precision;
@@ -14,7 +17,7 @@ class CircleLine {
             fillStyle: "white",
             strokeWidth: 20,
             lineWidth: 20,
-            fill: true,
+            fill: false,
             stroke: true,
             offset: {
                 x: this.canvas.width / 2 - radius / 2,
@@ -22,19 +25,27 @@ class CircleLine {
             }
         };
         this.options = Object.assign({}, defaults, options);
+        this.line = new Line(this.context, this.canvas, this.points, this.options);
+        this.changePrecision(precision);
+    }
+
+    changePrecision(precision) {
+        this.angle = 0;
+        this.precision = precision;
+        this.points = [];
         for(let i = 0; i <= this.precision; i++) {
             this.points.push({
-                x: Math.cos(i) * this.angle * this.radius + this.options.offset.x,
-                y: Math.sin(i) * this.angle * this.radius + this.options.offset.y
+                x: Math.cos(i) * this.angle * this.radius + this.options.offset.x + this.simplex.noise2D(Math.random(), Math.random()) * 7,
+                y: Math.sin(i) * this.angle * this.radius + this.options.offset.y + this.simplex.noise2D(Math.random(), Math.random()) * 7
             });
             this.angle += Math.PI * 2 / this.precision;
         }
-        this.line = new Line(this.context, this.canvas, this.points, this.options);
+        this.line.setPoints(this.points);
     }
 
     update() {
+        this.changePrecision(this.precision);
         this.line.update();
-        // if(!mousePosition) return;
     }
 
     draw() {

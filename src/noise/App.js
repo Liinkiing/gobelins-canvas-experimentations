@@ -1,5 +1,7 @@
+import CircleArc from "./forms/CircleArc";
+import Globals from "./Globals";
+
 let SimplexNoise = require('simplex-noise');
-import CircleLine from "./forms/CircleLine";
 
 class App {
 
@@ -13,10 +15,15 @@ class App {
     init() {
         this.canvas.width = window.innerWidth;
         this.canvas.height = window.innerHeight;
-        this.circle = new CircleLine(this.ctx, this.canvas, 100, 1000, {fill: false});
+        this.circle = new CircleArc(this.ctx, this.canvas, 500, 200, {stroke: true, fill: true});
+        Globals.now = Date.now();
+        Globals.lastTime = Globals.now;
+        Globals.deltaTime = 16;
+        this.registerElements();
         this.registerEventsListeners();
         this.render();
     }
+
 
     update() {
         this.circle.update();
@@ -33,10 +40,17 @@ class App {
         this.draw();
     }
 
+    registerElements() {
+        this.precisionSlider = document.getElementById("precisionSlider");
+    }
+
     registerEventsListeners() {
         window.addEventListener('resize', () => {
             this.canvas.width = window.innerWidth;
             this.canvas.height = window.innerHeight;
+        });
+        this.precisionSlider.addEventListener('input', (e) => {
+            this.circle.changePrecision(e.target.value);
         });
     }
 }

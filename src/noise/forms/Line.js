@@ -1,3 +1,5 @@
+import Utils from "../../Utils";
+
 class Line {
 
     constructor(context, canvas, points, options) {
@@ -19,16 +21,20 @@ class Line {
         // if(!mousePosition) return;
     }
 
+    setPoints(points) {
+        this.points = points;
+    }
+
     addPoint(point) {
         this.points.push(point);
     }
 
     draw() {
         this.context.beginPath();
-        this.context.strokeStyle = this.options.strokeStyle;
         this.context.fillStyle = this.options.fillStyle;
         this.points.forEach((point, i) => {
             if(typeof this.points[i+1] === 'undefined') return;
+            this.context.strokeStyle = Utils.randomColor();
             this.context.moveTo(point.x, point.y);
             this.context.lineTo(this.points[i+1].x, this.points[i+1].y);
         });
