@@ -1,5 +1,5 @@
 import Rectangle from "./forms/Rectangle";
-import Utils from "./Utils";
+import Utils from "../Utils";
 import Circle from "./forms/Circle";
 
 const RECTANGLES_NUMBER = 100;
